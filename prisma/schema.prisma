@@ -1,11 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 datasource db {
   provider = "postgres"
   url      = env("DATABASE_URL")
-  // provider = "sqlite"
-  // url      = "file:./dev.db"
 }
 
 generator client {
@@ -22,9 +17,26 @@ model Post {
   name   String
   text   String
   source PosterSource @default(RAW)
-
-  // To return `Date`s intact through the API we need to add data transformers
-  // https://trpc.io/docs/v11/data-transformers
   createdAt DateTime @unique @default(now())
   updatedAt DateTime @unique @default(now())
+}
+
+model WhatsAppSession {
+  id          String   @id @default(uuid())
+  userId      String
+  sessionData String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sessions  WhatsAppSession[]
 }

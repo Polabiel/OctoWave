@@ -5,11 +5,14 @@ import { router, publicProcedure } from '../trpc';
 import { postRouter } from './post';
 import { observable } from '@trpc/server/observable';
 import { clearInterval } from 'timers';
+import { whatsappRouter } from './whatsapp';
 
 export const appRouter = router({
   healthcheck: publicProcedure.query(() => 'yay!'),
 
   post: postRouter,
+
+  whatsapp: whatsappRouter,
 
   randomNumber: publicProcedure.subscription(() => {
     return observable<number>((emit) => {
