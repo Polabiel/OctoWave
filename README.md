@@ -1,67 +1,49 @@
-# Prisma + tRPC + WebSockets
+# OctoWave - Plataforma de Atendimentos com WhatsApp
 
-Try demo http://websockets.trpc.io/
+OctoWave é uma plataforma inovadora de atendimento que integra WhatsApp, permitindo comunicação eficiente entre empresas e clientes. Criado por Gabriel, o sistema oferece uma solução completa com WebSockets, Prisma e tRPC, garantindo alta performance e segurança na transmissão de dados.
 
-## Features
+## Recursos
 
-- 🧙‍♂️ E2E type safety with [tRPC](https://trpc.io)
-- ⚡ Full-stack React with Next.js
-- ⚡ WebSockets / Subscription support
-- ⚡ Database with Prisma
-- 🔐 Authorization using [next-auth](https://next-auth.js.org/)
-- ⚙️ VSCode extensions
-- 🎨 ESLint + Prettier
-- 💚 CI setup using GitHub Actions:
-  - ✅ E2E testing with [Playwright](https://playwright.dev/)
-  - ✅ Linting
+- 🧙‍♂️ **E2E type safety** com [tRPC](https://trpc.io)
+- ⚡ **Full-stack React** com Next.js
+- ⚡ **Suporte a WebSockets e Subscriptions**
+- ⚡ **Banco de dados com Prisma**
+- 🔐 **Autenticação** via [next-auth](https://next-auth.js.org/)
+- ⚙️ **Extensões para VSCode**
+- 🎨 **ESLint + Prettier** para código padronizado
+- 💚 **CI com GitHub Actions**:
+  - ✅ Testes E2E com [Playwright](https://playwright.dev/)
+  - ✅ Linting automático
 
-## Setup
+## Configuração
 
 ```bash
-pnpm create next-app --example https://github.com/trpc/trpc --example-path examples/next-prisma-websockets-starter trpc-prisma-websockets-starter
-cd trpc-prisma-websockets-starter
+pnpm create next-app --example https://github.com/trpc/trpc --example-path examples/next-prisma-websockets-starter octowave
+cd octowave
 pnpm i
 pnpm dx
 ```
 
-## Files of note
+## Arquivos Importantes
 
-<table>
-  <thead>
-    <tr>
-      <th>Path</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><a href="./prisma/schema.prisma"><code>./prisma/schema.prisma</code></a></td>
-      <td>Prisma schema</td>
-    </tr>
-    <tr>
-      <td><a href="./src/api/trpc/[trpc].tsx"><code>./src/api/trpc/[trpc].tsx</code></a></td>
-      <td>tRPC response handler</td>
-    </tr>
-    <tr>
-      <td><a href="./src/server/routers"><code>./src/server/routers</code></a></td>
-      <td>Your app's different tRPC-routers</td>
-    </tr>
-  </tbody>
-</table>
+| Caminho | Descrição |
+|---------|------------|
+| [./prisma/schema.prisma](./prisma/schema.prisma) | Esquema do banco de dados Prisma |
+| [./src/api/trpc/[trpc].tsx](./src/api/trpc/[trpc].tsx) | Manipulador de respostas do tRPC |
+| [./src/server/routers](./src/server/routers) | Roteadores tRPC da aplicação |
 
-## Commands
+## Comandos
 
 ```bash
-pnpm build      # runs `prisma generate` + `prisma migrate` + `next build`
-pnpm db-nuke    # resets local db
-pnpm dev        # starts next.js + WebSocket server
-pnpm dx         # starts postgres db + runs migrations + seeds + starts next.js
-pnpm test-dev   # runs e2e tests on dev
-pnpm test-start # runs e2e tests on `next start` - build required before
-pnpm test:unit  # runs normal Vitest unit tests
-pnpm test:e2e   # runs e2e tests
+pnpm build      # Geração do prisma + migrações + build do Next.js
+pnpm db-nuke    # Reseta o banco de dados local
+pnpm dev        # Inicia o servidor Next.js e WebSocket
+pnpm dx         # Inicia o PostgreSQL, aplica migrações e seeds, e inicia o Next.js
+pnpm test-dev   # Executa testes E2E em ambiente de desenvolvimento
+pnpm test-start # Executa testes E2E após o build
+pnpm test:unit  # Executa testes unitários com Vitest
+pnpm test:e2e   # Executa testes E2E completos
 ```
 
 ---
-
-Created by [@alexdotjs](https://twitter.com/alexdotjs).
+Criado por **[Gabriel Oliveira](https://github.com/polabiel)**.
