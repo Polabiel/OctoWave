@@ -30,6 +30,9 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# auth folder whatsapp
+/auth_info
+
 # vercel
 .vercel
 
