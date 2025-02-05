@@ -39,53 +39,27 @@ const whatsappRouter = router({
           }
         });
 
-        sock.ev.on('creds.update', saveCreds);
-      });
-    }),
-
-  authenticate: publicProcedure
-    .output(z.object({ userData: z.object({ id: z.string() }) }))
-    .mutation(async () => {
-      const { state, saveCreds } = await useMultiFileAuthState('auth_info');
-      let sock = makeWASocket({
-        auth: state,
-        printQRInTerminal: true,
-      });
-
-      return new Promise<{ userData: Contact }>((resolve) => {
-        sock.ev.on('connection.update', async (update) => {
-          const { connection, lastDisconnect } = update;
-          if (connection === 'close') {
-            const shouldReconnect =
-              (lastDisconnect?.error as Boom)?.output?.statusCode !==
-              DisconnectReason.loggedOut;
-            if (shouldReconnect) {
-              sock = makeWASocket({
-                auth: state,
-                printQRInTerminal: true,
-              });
+        sock.ev.on('creds.update', async (creds) => {
+          await saveCreds();
+          const sessionData = JSON.stringify(creds, (key, value) => {
+            if (typeof value === 'bigint') {
+              return value.toString();
             }
-          } else if (connection === 'open') {
-            console.log('opened connection');
-          }
-        });
-
-        sock.ev.on('creds.update', saveCreds);
-
-        sock.ev.on('connection.update', async (update) => {
-          const { connection } = update;
-          if (connection === 'open') {
-            const userData = sock.user;
-            if (!userData) throw new Error('User data not available');
-            await prisma.whatsAppSession.create({
-              data: {
-                userId: userData.id,
-                sessionData: JSON.stringify(state),
+            return value;
+          });
+          await prisma.whatsAppSession.create({
+            data: {
+              sessionData,
+              user: {
+                connect: {
+                  id: '1', // Replace with actual user ID from your authentication context
+                },
               },
-            });
-            resolve({ userData });
-          }
+            },
+          });
         });
+
+
       });
     }),
 

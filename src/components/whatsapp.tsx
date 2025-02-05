@@ -15,13 +15,6 @@ const WhatsAppPage = () => {
     },
   });
 
-  trpc.whatsapp.authenticate.useMutation({
-    onSuccess: (data) => {
-      setAuthenticated(true);
-      setUserData(data.userData);
-    },
-  });
-
   useEffect(() => {
     if (sessionData) {
       setAuthenticated(true);

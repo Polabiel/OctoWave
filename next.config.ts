@@ -3,10 +3,9 @@ import { NextConfig } from 'next';
 /**
  * @see https://nextjs.org/docs/api-reference/next.config.js/introduction
  */
-export default {
-  serverRuntimeConfig: {
-    // Will only be available on the server side
-  },
+/** @type {import('next').NextConfig} */
+const nextConfig: import('next').NextConfig = {
+  reactStrictMode: true,
   publicRuntimeConfig: {
     // Will be available on both server and client
     APP_URL: process.env.APP_URL,
@@ -15,3 +14,5 @@ export default {
   /** We run eslint as a separate task in CI */
   eslint: { ignoreDuringBuilds: !!process.env.CI },
 } satisfies NextConfig;
+
+module.exports = nextConfig;
